@@ -27,14 +27,15 @@ public class PessoaController implements PessoaControllerLocal, PessoaController
 	}
 	
 	@Override
-	public void cadastrar(String nome, String telefone) {
-		Pessoa p = new Pessoa();
+	public void cadastrar(Pessoa p) {
+		/*Pessoa p = new Pessoa();
 		p.setCpf("00000000000");
 		p.setEndereco("Endereço teste");
 		p.setIdade(21);
 		p.setNome("Fulano Sicrano");
-		p.setTelefone("84981237777");
+		p.setTelefone("84981237777");*/
 		pessoaDao.create(p);
+		System.out.println(p.getId());
 		System.out.println("Teste com sucesso");
 
 	}

@@ -22,11 +22,37 @@
 	
 	
 <h:body>
+	<p:layout fullPage="true">
 
-	<ui:insert name="conteudo">
-		Conteúdo...
-	</ui:insert>
+		<p:layoutUnit position="center" footer="Todos os Direitos Reservados.">
 
+			<h:form>	
+				<p:menubar>
+        			<p:submenu label="Opções" icon="ui-icon-document">
+            
+	        			<p:menuitem value="Cadastro de Categorias" url="#" />
+	        			<p:menuitem value="Catálogo de Produtos" url="#" />
+	        			<p:menuitem value="Carteira de Clientes" url="#" />
+	        			<p:menuitem value="Gerenciar Ofertas" url="#" />
+	        			<p:menuitem value="Carrinho" url="#" />
+	    
+        			</p:submenu>
+	    			<p:menuitem value="Cadastrar Pessoa" url="/cadastrar_pessoa.xhtml" />
+	    			<p:menuitem value="Sobre este curso" url="#"/>
+	    			<p:menuitem value="Sobre esta loja" action="#"/>
+	    			<p:menuitem value="Sobre Aluno" action="#"/>
+  
+    			</p:menubar>
+    		</h:form>
+
+			<ui:insert name="conteudo">
+				<h3>Bem vindo ao registro de animais!</h3>
+			</ui:insert>
+		</p:layoutUnit>
+		
+		<p:growl sticky="true" id="msgAjax" />
+
+	</p:layout>
 </h:body>
 
 </html>

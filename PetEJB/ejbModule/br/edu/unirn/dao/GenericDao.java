@@ -20,7 +20,6 @@ public abstract class GenericDao <T extends PersistDB> {
 	
 	private void change(T c, OperacaoDatabase op){
 		EntityManager em = getEm();
-		em.getTransaction().begin();
 		switch (op) {
 			case INSERIR:
 				em.persist(c);
@@ -32,7 +31,6 @@ public abstract class GenericDao <T extends PersistDB> {
 				em.remove(c);
 				break;
 		}
-		em.getTransaction().commit();
 		
 	}
 
