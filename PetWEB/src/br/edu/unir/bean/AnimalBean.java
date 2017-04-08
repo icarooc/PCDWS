@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 
 import br.edu.unirn.Utils.MensagensUtils;
 import br.edu.unirn.controller.AnimalController;
+import br.edu.unirn.controller.RelacaoController;
 import br.edu.unirn.modelo.Animal;
 
 @ManagedBean
@@ -16,6 +17,9 @@ public class AnimalBean {
 	
 	@EJB
 	private AnimalController ac;
+	
+	@EJB
+	private RelacaoController rc;
 	
 	public String cadastrar(){
 		if (animal.getId() <= 0){
@@ -36,8 +40,14 @@ public class AnimalBean {
 	
 	public String excluir(Animal animal){
 		this.animal = animal;
-		ac.delete(this.animal);
-		MensagensUtils.addInfo("Animal excluído com sucesso!");
+		List<Animal> animaisRelacionados = rc.buscarRelacaoPessoaAnimal(Animal.class, animal);
+		if (animaisRelacionados == null || animaisRelacionados.isEmpty()) {
+			ac.delete(this.animal);
+			MensagensUtils.addInfo("Animal excluído com sucesso!");
+		} else {
+			MensagensUtils.addError("Não é possível excluir animal com relação cadastrada");
+			return null;
+		}
 		this.animal = new Animal();
 		return null;
 	}

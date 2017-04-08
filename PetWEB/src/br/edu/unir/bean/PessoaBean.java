@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 
 import br.edu.unirn.Utils.MensagensUtils;
 import br.edu.unirn.controller.PessoaController;
+import br.edu.unirn.controller.RelacaoController;
+import br.edu.unirn.modelo.Animal;
 import br.edu.unirn.modelo.Pessoa;
 
 @ManagedBean
@@ -16,6 +18,9 @@ public class PessoaBean {
 	
 	@EJB
 	private PessoaController pc;
+	
+	@EJB
+	private RelacaoController rc;
 	
 	public String cadastrar(){
 		if (pessoa.getId() <= 0){
@@ -36,8 +41,14 @@ public class PessoaBean {
 	
 	public String excluir(Pessoa pessoa){
 		this.pessoa = pessoa;
-		pc.delete(this.pessoa);
-		MensagensUtils.addInfo("Pessoa excluída com sucesso!");
+		List<Pessoa> pessoasRelacionadas = rc.buscarRelacaoPessoaAnimal(Pessoa.class, pessoa);
+		if (pessoasRelacionadas == null || pessoasRelacionadas.isEmpty()) {
+			pc.delete(this.pessoa);
+			MensagensUtils.addInfo("Pessoa excluída com sucesso!");
+		} else {
+			MensagensUtils.addError("Não é possível excluir pessoa com relação cadastrada");
+			return null;
+		}
 		this.pessoa = new Pessoa();
 		return null;
 	}
