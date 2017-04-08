@@ -55,8 +55,10 @@
 							<f:validateLength maximum="14" />
 						</p:inputMask>
 						
+						<f:facet name="footer">
+							<p:commandButton value="Salvar" action="#{pessoaBean.cadastrar()}" ajax="false" />
+						</f:facet>
 					</p:panelGrid>
-					<p:commandButton value="Salvar" action="#{pessoaBean.cadastrar()}" ajax="false" />
 				</h:form>
 				
 				<br/>

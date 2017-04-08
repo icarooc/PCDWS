@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/index.xhtml">
+
+
+	<ui:define name="titulo">
+		Cadastro de Relação
+	</ui:define>
+	
+	<ui:define name="conteudo">
+	
+		<h3>Cadastro de Relações</h3>
+		
+			<h:form id="formulario" prependId="false">
+		
+				<h:inputHidden value="#{relacaoBean.relacao.id}" />
+
+					<p:panelGrid columns="2">
+
+						<p:outputLabel value="Pessoa" for="pessoa" />
+						<p:selectOneMenu id="pessoa" value="#{relacaoBean.relacao.pessoa.id}" required="true"
+							requiredMessage="Por favor, selecione uma pessoa."
+							validatorMessage="Por favor, selecione uma pessoa."
+							converterMessage="Por favor, selecione uma pessoa.">
+							<f:selectItem itemLabel="Selecione" itemValue="0"/>
+							<f:selectItems value="#{relacaoBean.pessoas}" var="pessoa" itemValue="#{pessoa.id}" itemLabel="#{pessoa.nome}"/>
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Animal" for="animal" />
+						<p:selectOneMenu id="animal" value="#{relacaoBean.relacao.animal.id}" required="true"
+							requiredMessage="Por favor, selecione um animal."
+							validatorMessage="Por favor, selecione um animal."
+							converterMessage="Por favor, selecione um animal.">
+							<f:selectItem itemLabel="Selecione" itemValue="0"/>
+							<f:selectItems value="#{relacaoBean.animaisSemDono}" var="animal" itemValue="#{animal.id}" itemLabel="#{animal.identificador}"/>
+						</p:selectOneMenu>
+
+						<f:facet name="footer">
+							<p:commandButton value="Salvar" action="#{relacaoBean.cadastrar()}" ajax="false" />
+							<p:commandButton value="Cancelar" action="#{relacaoBean.cancelar()}" ajax="false" />
+						</f:facet>
+					</p:panelGrid>
+				</h:form>
+				
+				<br/>
+				<br/>
+				
+				<h:form prependId="false">
+					<p:dataTable id="tabelaAnimal"
+						value="#{relacaoBean.listaCompleta}" var="relacao"
+						styleClass="listagem" rows="10" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15,20">
+						
+						<f:facet name="header">
+        					Lista de relações
+    					</f:facet>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Pessoa" />
+							</f:facet>
+							<h:outputText value="#{relacao.pessoa.nome}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Animal" />
+							</f:facet>
+							<h:outputText value="#{relacao.animal.identificador}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Data Início" />
+							</f:facet>
+							<h:outputText value="#{relacao.dataInicio}" >
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Editar">
+							<p:commandButton icon="ui-icon-pencil"
+								action="#{relacaoBean.editar(relacao)}" ajax="false" />
+						</p:column>
+						<p:column headerText="Excluir">
+							<p:commandButton icon="ui-icon-trash"
+								action="#{relacaoBean.excluir(relacao)}" ajax="false" />
+						</p:column>
+
+					</p:dataTable>
+
+				</h:form>
+		
+	</ui:define>
+
+</ui:composition>

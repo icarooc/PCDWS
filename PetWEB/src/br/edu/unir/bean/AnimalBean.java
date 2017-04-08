@@ -46,6 +46,7 @@ public class AnimalBean {
 			MensagensUtils.addInfo("Animal excluído com sucesso!");
 		} else {
 			MensagensUtils.addError("Não é possível excluir animal com relação cadastrada");
+			this.animal = new Animal();
 			return null;
 		}
 		this.animal = new Animal();

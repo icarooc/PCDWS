@@ -46,8 +46,10 @@
 							<f:validateLength maximum="120" />
 						</p:inputText>
 						
+						<f:facet name="footer">
+							<p:commandButton value="Salvar" action="#{animalBean.cadastrar()}" ajax="false" />
+						</f:facet>
 					</p:panelGrid>
-					<p:commandButton value="Salvar" action="#{animalBean.cadastrar()}" ajax="false" />
 				</h:form>
 				
 				<br/>

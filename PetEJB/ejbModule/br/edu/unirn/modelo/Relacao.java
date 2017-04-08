@@ -23,11 +23,11 @@ public class Relacao implements PersistDB{
 	
 	@OneToOne
 	@JoinColumn(name="id_animal")
-	private Animal animal;
+	private Animal animal = new Animal();
 	
 	@OneToOne
 	@JoinColumn(name="id_pessoa")
-	private Pessoa pessoa;
+	private Pessoa pessoa = new Pessoa();
 	
 	@Column
 	private Date dataInicio;

@@ -47,6 +47,7 @@ public class PessoaBean {
 			MensagensUtils.addInfo("Pessoa excluída com sucesso!");
 		} else {
 			MensagensUtils.addError("Não é possível excluir pessoa com relação cadastrada");
+			this.pessoa = new Pessoa();
 			return null;
 		}
 		this.pessoa = new Pessoa();

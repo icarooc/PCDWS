@@ -3,11 +3,15 @@ package br.edu.unirn.controller;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 
 import br.edu.unirn.dao.RelacaoDao;
 import br.edu.unirn.modelo.PersistDB;
 import br.edu.unirn.modelo.Relacao;
 
+@Stateless
+@LocalBean
 public class RelacaoController extends AbstractController implements RelacaoControllerRemote,RelacaoControllerLocal {
 
 	private RelacaoDao relacaoDao;

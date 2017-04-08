@@ -27,11 +27,11 @@ public class RelacaoDao extends GenericDao<Relacao>{
 	}
 	
 	public <T extends PersistDB> List<T> buscarRelacaoPessoaAnimal(Class<T> t, T objeto) {
-		String tabela = t.getSimpleName();
-		String jpql = "SELECT r FROM Relacao r where r." + tabela + ".id like :valor";
+		String tabela = t.getSimpleName().toLowerCase();
+		String jpql = "SELECT r FROM Relacao r where r." + tabela + ".id = :valor";
 		EntityManager em = getEm();
 		Query q = em.createQuery(jpql);
-		q.setParameter("valor", "%"+objeto.getId()+"%");
+		q.setParameter("valor", objeto.getId());
 		List<T> retorno = q.getResultList();
 		return retorno;
 	}

@@ -69,4 +69,8 @@ public class Animal implements PersistDB{
 		this.raca = raca;
 	}
 	
+	public String getIdentificador(){
+		return this.tipo + " " + this.getNome();
+	}
+	
 }
