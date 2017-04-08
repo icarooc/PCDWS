@@ -28,22 +28,13 @@ public abstract class GenericDao <T extends PersistDB> {
 				em.merge(c);
 				break;
 			case REMOVER:
+				c = em.merge(c);
 				em.remove(c);
 				break;
 		}
 		
 	}
 
-//	public EntityManager getEm() {
-//		
-//		if (em == null){
-//			em = Database.getInstance().getEntityManager();
-//		}else if (!em.isOpen()){
-//			em = Database.getInstance().getEntityManager();
-//		}
-//		
-//		return em;
-//	}
 	
 	public abstract EntityManager getEm();
 	

@@ -17,6 +17,8 @@
 		<h3>Começar o cadastro de pessoas.</h3>
 		
 			<h:form id="formulario" prependId="false">
+			
+				<h:inputHidden value="#{pessoaBean.pessoa.id}" />
 
 					<p:panelGrid columns="2">
 
@@ -38,12 +40,12 @@
 						<p:outputLabel value="Endereço" for="endereco" />
 						<p:inputText id="endereco"
 							value="#{pessoaBean.pessoa.endereco}"
-							validatorMessage="Endereço deve ter no máximo 120 caracteres.">
+							validatorMessage="Endereço deve ter no máximo 120 caracteres." required="true">
 							<f:validateLength maximum="120" />
 						</p:inputText>
 						
 						<p:outputLabel value="Idade" for="idade" />
-						<p:inputNumber id="idade" value="#{pessoaBean.pessoa.idade}"/>
+						<p:inputNumber id="idade" value="#{pessoaBean.pessoa.idade}" required="true"/>
 						
 						<p:outputLabel value="Telefone" for="telefone" />
 						<p:inputMask id="telefone"
@@ -55,6 +57,62 @@
 						
 					</p:panelGrid>
 					<p:commandButton value="Salvar" action="#{pessoaBean.cadastrar()}" ajax="false" />
+				</h:form>
+				
+				<br/>
+				<br/>
+				
+				<h:form prependId="false">
+					<p:dataTable id="tabelaPessoa"
+						value="#{pessoaBean.listaCompleta}" var="pessoa"
+						styleClass="listagem" rows="10" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15,20">
+						
+						<f:facet name="header">
+        					Lista de Pessoas
+    					</f:facet>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Nome" />
+							</f:facet>
+							<h:outputText value="#{pessoa.nome}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="CPF" />
+							</f:facet>
+							<h:outputText value="#{pessoa.cpf}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Endereço" />
+							</f:facet>
+							<h:outputText value="#{pessoa.endereco}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Idade" />
+							</f:facet>
+							<h:outputText value="#{pessoa.idade}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Telefone" />
+							</f:facet>
+							<h:outputText value="#{pessoa.telefone}" />
+						</p:column>
+						<p:column headerText="Editar">
+							<p:commandButton icon="ui-icon-pencil"
+								action="#{pessoaBean.editar(pessoa)}" ajax="false" />
+						</p:column>
+						<p:column headerText="Excluir">
+							<p:commandButton icon="ui-icon-trash"
+								action="#{pessoaBean.excluir(pessoa)}" ajax="false" />
+						</p:column>
+
+					</p:dataTable>
+
 				</h:form>
 		
 	</ui:define>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/index.xhtml">
+
+
+	<ui:define name="titulo">
+		Cadastro de Animais
+	</ui:define>
+	
+	<ui:define name="conteudo">
+	
+		<h3>Cadastro de animais</h3>
+		
+			<h:form id="formulario" prependId="false">
+		
+				<h:inputHidden value="#{animalBean.animal.id}" />
+
+					<p:panelGrid columns="2">
+
+						<p:outputLabel value="Nome" for="nome" />
+						<p:inputText id="nome"
+							value="#{animalBean.animal.nome}" required="true"
+							validatorMessage="Nome deve ter no máximo 30 caracteres.">
+							<f:validateLength maximum="30" />
+						</p:inputText>
+
+						<p:outputLabel value="Tipo" for="tipo" />
+						<p:inputText id="tipo"
+							value="#{animalBean.animal.tipo}"
+							validatorMessage="Tipo deve ter no máximo 120 caracteres." required="true">
+							<f:validateLength maximum="120"/>
+						</p:inputText>
+						
+						<p:outputLabel value="Idade" for="idade" />
+						<p:inputNumber id="idade" value="#{animalBean.animal.idade}" required="true"/>
+						
+						<p:outputLabel value="Raça" for="raca" />
+						<p:inputText id="raca"
+							value="#{animalBean.animal.raca}"
+							validatorMessage="Raça deve ter no máximo 120 caracteres." required="true">
+							<f:validateLength maximum="120" />
+						</p:inputText>
+						
+					</p:panelGrid>
+					<p:commandButton value="Salvar" action="#{animalBean.cadastrar()}" ajax="false" />
+				</h:form>
+				
+				<br/>
+				<br/>
+				
+				<h:form prependId="false">
+					<p:dataTable id="tabelaAnimal"
+						value="#{animalBean.listaCompleta}" var="animal"
+						styleClass="listagem" rows="10" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15,20">
+						
+						<f:facet name="header">
+        					Lista de animais
+    					</f:facet>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Nome" />
+							</f:facet>
+							<h:outputText value="#{animal.nome}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Tipo" />
+							</f:facet>
+							<h:outputText value="#{animal.tipo}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Idade" />
+							</f:facet>
+							<h:outputText value="#{animal.idade}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Raça" />
+							</f:facet>
+							<h:outputText value="#{animal.raca}" />
+						</p:column>
+						<p:column headerText="Editar">
+							<p:commandButton icon="ui-icon-pencil"
+								action="#{animalBean.editar(animal)}" ajax="false" />
+						</p:column>
+						<p:column headerText="Excluir">
+							<p:commandButton icon="ui-icon-trash"
+								action="#{animalBean.excluir(animal)}" ajax="false" />
+						</p:column>
+
+					</p:dataTable>
+
+				</h:form>
+		
+	</ui:define>
+
+</ui:composition>

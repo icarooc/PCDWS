@@ -1,5 +1,7 @@
 package br.edu.unirn.controller;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -14,30 +16,35 @@ import br.edu.unirn.modelo.Pessoa;
  */
 @Stateless
 @LocalBean
-public class PessoaController implements PessoaControllerLocal, PessoaControllerRemote {
-
-	@PersistenceContext(unitName="PetBDDS")
-	EntityManager em;
+public class PessoaController extends AbstractController implements PessoaControllerLocal, PessoaControllerRemote {
 
 	private PessoaDao pessoaDao;
 	
 	@PostConstruct
 	public void init(){
-		this.pessoaDao = new PessoaDao(em);
+		this.pessoaDao = new PessoaDao(getEm());
 	}
 	
 	@Override
 	public void cadastrar(Pessoa p) {
-		/*Pessoa p = new Pessoa();
-		p.setCpf("00000000000");
-		p.setEndereco("Endereço teste");
-		p.setIdade(21);
-		p.setNome("Fulano Sicrano");
-		p.setTelefone("84981237777");*/
 		pessoaDao.create(p);
 		System.out.println(p.getId());
 		System.out.println("Teste com sucesso");
+	}
+	
+	@Override
+	public void delete(Pessoa p){
+		pessoaDao.delete(p);
+	}
 
+	@Override
+	public void update(Pessoa p) {
+		pessoaDao.update(p);
+	}
+
+	@Override
+	public List<Pessoa> listaCompleta() {
+		return pessoaDao.findAll();
 	}
 
 }

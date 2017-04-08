@@ -1,5 +1,7 @@
 package br.edu.unir.bean;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
@@ -16,10 +18,32 @@ public class PessoaBean {
 	private PessoaController pc;
 	
 	public String cadastrar(){
-		pc.cadastrar(pessoa);
+		if (pessoa.getId() <= 0){
+			pc.cadastrar(pessoa);
+			MensagensUtils.addInfo("Pessoa cadastrada com sucesso!");
+		} else {
+			pc.update(pessoa);
+			MensagensUtils.addInfo("Pessoa alterada com sucesso!");
+		}
 		pessoa = new Pessoa();
-		MensagensUtils.addInfo("Cliente alterado com sucesso!");
 		return null;
+	}
+	
+	public String editar(Pessoa pessoa){
+		this.pessoa = pessoa;
+		return null;
+	}
+	
+	public String excluir(Pessoa pessoa){
+		this.pessoa = pessoa;
+		pc.delete(this.pessoa);
+		MensagensUtils.addInfo("Pessoa excluída com sucesso!");
+		this.pessoa = new Pessoa();
+		return null;
+	}
+	
+	public List<Pessoa>getListaCompleta(){
+		return pc.listaCompleta();
 	}
 
 	public Pessoa getPessoa() {
