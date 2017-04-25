@@ -16,5 +16,7 @@ public interface PessoaControllerRemote {
 	public void delete(Pessoa p);
 	
 	public List<Pessoa> listaCompleta();
+	
+	public Pessoa findByID(Long id);
 
 }

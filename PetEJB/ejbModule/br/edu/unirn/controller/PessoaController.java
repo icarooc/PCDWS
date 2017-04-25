@@ -47,4 +47,9 @@ public class PessoaController extends AbstractController implements PessoaContro
 		return pessoaDao.findAll();
 	}
 
+	@Override
+	public Pessoa findByID(Long id) {
+		return pessoaDao.findByPrimaryKey(id);
+	}
+
 }
